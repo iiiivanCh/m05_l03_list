@@ -2,11 +2,7 @@
 
 const listNew = () => {
   let words = prompt(`del - удаление последней строки\nclear - очистить список\nexit - выход из программы`);
-  return doControlUnit(words);
-}
-listNew();
-
-function doControlUnit(words) {
+  console.log(words);
   if (words === 'exit' || words === null) {
     return;
   }
@@ -15,13 +11,17 @@ function doControlUnit(words) {
     return listNew();
   }
   if (words === 'del') {
-    return doItemDel();
+    doItemDel();
+    return listNew();
   }
   if (words === 'clear') {
-    return doListDel();
+    doListDel();
+    return listNew();
   }
   doItemNew(words);
+  return listNew();
 }
+listNew();
 
 function doItemNew(words) {
   const list = document.querySelector('.list');
@@ -29,7 +29,6 @@ function doItemNew(words) {
   item.classList.add('item');
   item.innerText = words;
   list.append(item);
-  return listNew();
 }
 
 function doListDel() {
@@ -37,17 +36,11 @@ function doListDel() {
   for (let del of item) {
     del.remove();
   }
-  return listNew();
 }
 
 function doItemDel() {
   const item = document.querySelector('.item:last-child');
-  if (item === null) {
-    return listNew();
-  } else {
-    item.remove();
-    return listNew();
-  }
+  item.remove();
 }
 
 
